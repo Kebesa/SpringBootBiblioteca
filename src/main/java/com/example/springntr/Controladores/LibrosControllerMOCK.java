@@ -85,7 +85,7 @@ public class LibrosControllerMOCK {
     //PUT --> UPDATE
     //falta actualizar ficheros
     @PutMapping("/{isbn}")
-    public ResponseEntity<Libro> updateLibro(@RequestBody Libro libro){
+    public ResponseEntity<Libro> updateLibro(@Valid @RequestBody Libro libro){
         Libro libroPersistido = repositorioLibros.save(libro);
         return ResponseEntity.ok().body(libroPersistido);
     }

@@ -2,6 +2,7 @@ package com.example.springntr.Controladores;
 
 import com.example.springntr.Clases.Ejemplar;
 import com.example.springntr.Clases.Libro;
+import com.example.springntr.Clases.Usuario;
 import com.example.springntr.Repositorios.EjemplaresRepository;
 import com.example.springntr.Repositorios.LibrosRepository;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -31,7 +32,7 @@ public class EjemplaresControllerMOCK {
 
     //GET --> SELECT *
     @GetMapping
-    public ResponseEntity<List<Ejemplar>> getLibro(){
+    public ResponseEntity<List<Ejemplar>> getEjemplar(){
         List<Ejemplar> lista = this.repositorioEjemplares.findAll();
         System.out.println(lista);
         return ResponseEntity.ok(lista);
@@ -40,7 +41,7 @@ public class EjemplaresControllerMOCK {
     //GET BY ISBN --> SELECT BY ISBN
     @GetMapping("/{id}")
     @Cacheable
-    public ResponseEntity<Ejemplar> getEjemlarJson(@PathVariable Integer id){
+    public ResponseEntity<Ejemplar> getEjemplarJson(@PathVariable Integer id){
             Ejemplar e = this.repositorioEjemplares.findById(id).get();
             return ResponseEntity.ok(e);
     }
@@ -55,7 +56,7 @@ public class EjemplaresControllerMOCK {
 
     //PUT --> UPDATE
     @PutMapping("/{id}")
-    public ResponseEntity<Ejemplar> updateEjemplar(@RequestBody Ejemplar ejemplar){
+    public ResponseEntity<Ejemplar> updateEjemplar(@Valid @RequestBody Ejemplar ejemplar){
         Ejemplar ejemplarPersistido = repositorioEjemplares.save(ejemplar);
         return ResponseEntity.ok().body(ejemplarPersistido);
     }

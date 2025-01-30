@@ -1,6 +1,10 @@
 package com.example.springntr.Clases;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 import java.sql.Date;
 import java.util.Collection;
@@ -12,21 +16,37 @@ import java.util.Set;
 public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @NotEmpty(message = "Error en el id, ingresa un valor que no esté vacío.")
+    @NotNull(message = "Error en el id, ingresa un valor que no sea nulo.")
     @Column(name = "id", nullable = false)
     private int id;
     @Basic
+    @NotEmpty(message = "Error en el DNI o NIE, ingresa un valor que no esté vacío.")
+    @NotNull(message = "Error en el DNI o NIE, ingresa un valor que no sea nulo.")
     @Column(name = "dni", nullable = false, length = 15)
     private String dni;
     @Basic
+    @Size(max = 100, message = "Error en el nombre, ingresa un valor que no tenga más de 100 caracteres")
+    @Pattern(regexp = "^[A-Za-z0-9]+$", message = "Error en el nombre, ingresa un título que solo tenga letras y números.")
+    @NotNull(message = "Error en el nombre, ingresa un valor que no sea nulo.")
     @Column(name = "nombre", nullable = false, length = 100)
     private String nombre;
     @Basic
+    @NotEmpty(message = "Error en el email, ingresa un valor que no esté vacío.")
+    @Pattern(regexp = "([A-Za-z0-9]{1,50}@gmail.com)", message = "Error en el email, ingresa un email que sea del proveedor de Gmail.")
+    @NotNull(message = "Error en el email, ingresa un valor que no sea nulo.")
     @Column(name = "email", nullable = false, length = 100)
     private String email;
     @Basic
+    @NotEmpty(message = "Error en la contraseña, ingresa un valor que no esté vacío.")
+    @Pattern(regexp = "^[A-Za-z0-9]{4,8}+$", message = "Error en la contraseña, ingresa una contraseña que tenga de 4 a 12 caracteres que tenga letras y números.")
+    @NotNull(message = "Error en la contraseña, ingresa un valor que no sea nulo.")
     @Column(name = "password", nullable = false, length = 255)
     private String password;
     @Basic
+    @NotEmpty(message = "Error en el tipo de usuario, ingresa un valor que no esté vacío.")
+    @Pattern(regexp = "^(normal|administrador)$", message = "El usuario solo puede ser: normal o administrador (todo en minúsculas).")
+    @NotNull(message = "Error en el tipo de usuario, ingresa un valor que no sea nulo.")
     @Column(name = "tipo", nullable = false)
     private String tipo;
     @Basic

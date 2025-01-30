@@ -55,7 +55,7 @@ public class UsuariosControllerMOCK {
     //PUT --> UPDATE
     //falta actualizar ficheros
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> updateUsuario(@RequestBody Usuario usuario){
+    public ResponseEntity<Usuario> updateUsuario(@Valid @RequestBody Usuario usuario){
         Usuario usuarioPersistido = repositorioUsuarios.save(usuario);
         return ResponseEntity.ok().body(usuarioPersistido);
     }

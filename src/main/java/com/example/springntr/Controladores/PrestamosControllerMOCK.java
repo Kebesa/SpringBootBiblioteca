@@ -53,7 +53,7 @@ public class PrestamosControllerMOCK {
     //PUT --> UPDATE
     //falta actualizar ficheros
     @PutMapping("/{id}")
-    public ResponseEntity<Prestamo> updatePrestamo(@RequestBody Prestamo prestamo){
+    public ResponseEntity<Prestamo> updatePrestamo(@Valid @RequestBody Prestamo prestamo){
         Prestamo prestamoPersistido = repositorioPrestamos.save(prestamo);
         return ResponseEntity.ok().body(prestamoPersistido);
     }

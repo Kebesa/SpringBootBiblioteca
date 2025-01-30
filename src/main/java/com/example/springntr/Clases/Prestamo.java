@@ -1,6 +1,8 @@
 package com.example.springntr.Clases;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 import java.sql.Date;
 import java.util.Objects;
@@ -10,18 +12,28 @@ import java.util.Objects;
 public class Prestamo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @NotEmpty(message = "Error en el id, ingresa un valor que no esté vacío")
+    @NotNull(message = "Error en el id, ingresa un valor que no sea nulo")
     @Column(name = "id", nullable = false)
     private int id;
     @Basic
+    @NotEmpty(message = "Error en la fecha de inicio, ingresa un valor que no esté vacío")
+    @NotNull(message = "Error en la fecha de inicio, ingresa un valor que no sea nulo")
     @Column(name = "fechaInicio", nullable = false)
     private Date fechaInicio;
     @Basic
+    @NotEmpty(message = "Error en la fecha de devolución, ingresa un valor que no esté vacío")
+    @NotNull(message = "Error en la fecha de devolución, ingresa un valor que no sea nulo")
     @Column(name = "fechaDevolucion", nullable = true)
     private Date fechaDevolucion;
     @ManyToOne
+    @NotEmpty(message = "Error en el usuario, ingresa un valor que no esté vacío")
+    @NotNull(message = "Error en el usuario, ingresa un valor que no sea nulo")
     @JoinColumn(name = "usuario_id", referencedColumnName = "id", nullable = false)
     private Usuario usuarioByUsuarioId;
     @ManyToOne
+    @NotEmpty(message = "Error en el ejemplar, ingresa un valor que no esté vacío")
+    @NotNull(message = "Error en el ejemplar, ingresa un valor que no sea nulo")
     @JoinColumn(name = "ejemplar_id", referencedColumnName = "id", nullable = false)
     private Ejemplar ejemplarByEjemplarId;
 
