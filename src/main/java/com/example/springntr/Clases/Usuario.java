@@ -16,18 +16,17 @@ import java.util.Set;
 public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @NotEmpty(message = "Error en el id, ingresa un valor que no esté vacío.")
-    @NotNull(message = "Error en el id, ingresa un valor que no sea nulo.")
     @Column(name = "id", nullable = false)
     private int id;
     @Basic
     @NotEmpty(message = "Error en el DNI o NIE, ingresa un valor que no esté vacío.")
+    @Pattern(regexp = "^(\\d{8}[A-HJ-NP-TV-Z]|[XYZ]\\d{7}[A-HJ-NP-TV-Z])$", message = "Error en el DNI o NIE, ingresa un DNI o NIE que tenga un patrón correcto.")
     @NotNull(message = "Error en el DNI o NIE, ingresa un valor que no sea nulo.")
     @Column(name = "dni", nullable = false, length = 15)
     private String dni;
     @Basic
     @Size(max = 100, message = "Error en el nombre, ingresa un valor que no tenga más de 100 caracteres")
-    @Pattern(regexp = "^[A-Za-z0-9]+$", message = "Error en el nombre, ingresa un título que solo tenga letras y números.")
+    @Pattern(regexp = "^[A-Za-z0-9ÁÉÍÓÚáéíóúÑñ ]+$" , message = "Error en el nombre, ingresa un título que solo tenga letras y números.")
     @NotNull(message = "Error en el nombre, ingresa un valor que no sea nulo.")
     @Column(name = "nombre", nullable = false, length = 100)
     private String nombre;

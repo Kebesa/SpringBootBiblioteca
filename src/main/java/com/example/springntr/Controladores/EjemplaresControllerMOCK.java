@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -47,7 +48,8 @@ public class EjemplaresControllerMOCK {
     }
 
    //POST --> INSERT
-    @PostMapping("/ejemplar")
+   @ExceptionHandler(MethodArgumentNotValidException.class)
+   @PostMapping("/ejemplar")
     public ResponseEntity<Ejemplar> addEjemplar(@Valid @RequestBody Ejemplar ejemplar){
         System.out.println("Entra aqui");
         Ejemplar ejemplarPersistido = this.repositorioEjemplares.save(ejemplar);

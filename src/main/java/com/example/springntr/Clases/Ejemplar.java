@@ -13,7 +13,6 @@ import java.util.Objects;
 public class Ejemplar {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @NotEmpty(message = "Error en el id, ingresa un valor que no esté vacío.")
     @NotNull(message = "Error en el id, ingresa un valor que no sea nulo.")
     @Column(name = "id", nullable = false)
     private int id;
@@ -24,7 +23,6 @@ public class Ejemplar {
     @Column(name = "estado", nullable = true)
     private String estado;
     @ManyToOne
-    @NotEmpty(message = "Error en el libro, ingresa un valor que no esté vacío.")
     @NotNull(message = "Error en el libro, ingresa un valor que no sea nulo.")
     @JoinColumn(name = "isbn", referencedColumnName = "isbn", nullable = false)
     private Libro libroByIsbn;
