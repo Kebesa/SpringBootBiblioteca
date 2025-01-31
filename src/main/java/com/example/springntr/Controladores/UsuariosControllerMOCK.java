@@ -23,6 +23,42 @@ public class UsuariosControllerMOCK {
     public UsuariosControllerMOCK(){
     }
 
+    public boolean ValidarDNI(String dni) {
+        String[] letras = dni.split("");
+        String[] dni_letras = {"T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E"};
+        if (letras.length != 9){
+            return false;
+        }
+        if (Character.isLetter(letras[0].charAt(0))){
+            int numeros = Integer.parseInt(dni.substring(1, 8));
+            if (letras[0].equals("X")) {
+                if (letras[8].equals(dni_letras[numeros % 23])){
+                    return true;
+                } else
+                    return false;
+            } else if (letras[0].equals("Y")) {
+                String numeros_actualizado = "1" + String.valueOf(numeros);
+                if (letras[8].equals(dni_letras[Integer.parseInt(numeros_actualizado) % 23])){
+                    return true;
+                } else
+                    return false;
+            } else if (letras[0].equals("Z")) {
+                String numeros_actualizado = "2" + String.valueOf(numeros);
+                if (letras[8].equals(dni_letras[Integer.parseInt(numeros_actualizado) % 23])){
+                    return true;
+                } else
+                    return false;
+            } else
+                return false;
+        } else {
+            int numeros = Integer.parseInt(dni.substring(0, 8));
+            if (letras[8].equals(dni_letras[numeros % 23])) {
+                return true;
+            } else
+                return false;
+        }
+    }
+
     @Autowired
     public UsuariosControllerMOCK(UsuariosRepository repositorioUsuarios){
         this.repositorioUsuarios = repositorioUsuarios;
@@ -48,16 +84,27 @@ public class UsuariosControllerMOCK {
     @PostMapping("/usuario")
     public ResponseEntity<Usuario> addLibro(@Valid @RequestBody Usuario usuario){
         System.out.println("Entra aqui");
-        Usuario usuarioPersistido = this.repositorioUsuarios.save(usuario);
-        return ResponseEntity.ok().body(usuarioPersistido);
+        Usuario usuarioPersistido = null;
+        if(ValidarDNI(usuario.getDni())) {
+            usuarioPersistido = this.repositorioUsuarios.save(usuario);
+            return ResponseEntity.ok().body(usuarioPersistido);
+        } else {
+            return ResponseEntity.ok().body(usuarioPersistido);
+        }
     }
 
     //PUT --> UPDATE
     //falta actualizar ficheros
     @PutMapping("/{id}")
     public ResponseEntity<Usuario> updateUsuario(@Valid @RequestBody Usuario usuario){
-        Usuario usuarioPersistido = repositorioUsuarios.save(usuario);
-        return ResponseEntity.ok().body(usuarioPersistido);
+        System.out.println("Entra aqui");
+        Usuario usuarioPersistido = null;
+        if(ValidarDNI(usuario.getDni())) {
+            usuarioPersistido = repositorioUsuarios.save(usuario);
+            return ResponseEntity.ok().body(usuarioPersistido);
+        } else {
+            return ResponseEntity.ok().body(usuarioPersistido);
+        }
     }
 
     //DELETE
